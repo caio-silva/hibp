@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5649d345-341e-4a87-a3d4-889ee9f58b78" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/validation/ResponseValidationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/validation/ResponseValidationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +261,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/validation/ResponseValidationTest.java</url>
-          <line>81</line>
+          <line>79</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
