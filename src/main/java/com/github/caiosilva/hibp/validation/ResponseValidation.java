@@ -21,7 +21,7 @@ public interface ResponseValidation {
                 case 429:
                     throw new HaveIBeenPwndException.TooManyRequestsException();
                 case 503:
-                    final String msg = !isNull(res.body()) ? " - " + res.body() : "";
+                    final String msg = !isNull(res.body()) ? res.body().toString() : "";
                     throw new HaveIBeenPwndException.ServiceUnavailableException(msg);
                 default:
                     throw new HaveIBeenPwndException.UnknownErrorCodeException(res.code());
