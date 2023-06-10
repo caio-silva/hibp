@@ -1,8 +1,7 @@
 /* (C)2023 */
 package com.github.caiosilva.hibp.executor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.github.caiosilva.hibp.exception.HaveIBeenPwndException;
@@ -15,30 +14,49 @@ import retrofit2.Response;
 
 class HttpCallExecutorTest {
     @Test
-    void callService_ResultSentToConsumer() throws HaveIBeenPwndException, IOException {
-        Call<String> call = mock(Call.class);
+    void callService_ResultSentToConsumer( ) throws HaveIBeenPwndException, IOException {
+        Call<String> call = mock( Call.class );
 
-        Response<String> response = Response.success("Response Body");
-        when(call.execute()).thenReturn(response);
+        Response<String> response = Response.success( "Response Body" );
+        when( call.execute() ).thenReturn( response );
 
-        Consumer<Response<?>> consumer = mock(Consumer.class);
+        Consumer<Response<?>> consumer = mock( Consumer.class );
 
-        HttpCallExecutor.callService(call, consumer);
+        HttpCallExecutor.callService( call, consumer );
 
-        verify(consumer).accept(response);
+        verify( consumer ).accept( response );
     }
 
     @Test
-    void callService_ResultReturned() throws HaveIBeenPwndException, IOException {
-        Call<String> call = mock(Call.class);
+    void callService_ResultSentToConsumerThrowsHaveIBeenPwndExceptionIOException( ) throws HaveIBeenPwndException, IOException {
+        Call<String> call = mock( Call.class );
+        Consumer<Response<?>> consumer = mock( Consumer.class );
+        when( call.execute() ).thenThrow( new IOException() );
+
+        assertThrows(
+                HaveIBeenPwndException.IOException.class, ( ) -> HttpCallExecutor.callService( call, consumer ) );
+    }
+
+    @Test
+    void callService_ResultReturned( ) throws HaveIBeenPwndException, IOException {
+        Call<String> call = mock( Call.class );
 
         final String BODY = "Response Body";
-        Response<String> response = Response.success(BODY);
-        when(call.execute()).thenReturn(response);
+        Response<String> response = Response.success( BODY );
+        when( call.execute() ).thenReturn( response );
 
-        Optional<String> result = HttpCallExecutor.callService(call);
+        Optional<String> result = HttpCallExecutor.callService( call );
 
-        assertTrue(result.isPresent());
-        assertEquals(result.get(), BODY);
+        assertTrue( result.isPresent() );
+        assertEquals( result.get(), BODY );
+    }
+
+    @Test
+    void callService_ResultReturnedThrowsHaveIBeenPwndExceptionIOException( ) throws HaveIBeenPwndException, IOException {
+        Call<String> call = mock( Call.class );
+        when( call.execute() ).thenThrow( new IOException() );
+
+        assertThrows(
+                HaveIBeenPwndException.IOException.class, ( ) -> HttpCallExecutor.callService( call ) );
     }
 }
