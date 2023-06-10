@@ -66,13 +66,21 @@ class ResponseValidationTest {
     }
 
     @Test
-    @DisplayName("Validate Response Throws ServiceUnavailableException (503)")
-    void validateResponseThrowsServiceUnavailableException() {
+    @DisplayName("Validate Response Throws ServiceUnavailableException (503) with body")
+    void validateResponseThrowsServiceUnavailableExceptionWithBody() {
+        final String TEST_BODY = "Service unavailable - ";
         Response<?> response =
-                Response.error(503, ResponseBody.create(MediaType.parse("application/json"), ""));
+                Response.error(503, ResponseBody.create(MediaType.parse("application/json"), TEST_BODY));
         assertThrows(
                 HaveIBeenPwndException.ServiceUnavailableException.class,
-                () -> ResponseValidation.validate(response));
+                () -> {
+                    try {
+                        ResponseValidation.validate(response);
+                    } catch (HaveIBeenPwndException.ServiceUnavailableException ex) {
+                        assertEquals(TEST_BODY, ex.getMessage());
+                        throw ex; // Re-throw the exception after the assertion
+                    }
+                });
     }
 
     @Test
