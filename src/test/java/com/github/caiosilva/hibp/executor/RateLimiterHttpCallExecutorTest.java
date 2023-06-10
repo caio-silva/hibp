@@ -1,6 +1,7 @@
 /* (C)2023 */
 package com.github.caiosilva.hibp.executor;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -12,7 +13,9 @@ import com.github.caiosilva.hibp.exception.HaveIBeenPwndException;
 import com.github.caiosilva.hibp.plan.APIPlan;
 import com.github.caiosilva.hibp.rateLimit.RateLimiterBuilder;
 import com.github.caiosilva.hibp.rateLimit.RateLimiterEntity;
+import io.github.bucket4j.Bucket;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -51,7 +54,7 @@ class RateLimiterHttpCallExecutorTest {
     }
 
     @ParameterizedTest
-    @EnumSource( APIPlan.class )
+    @EnumSource( value = APIPlan.class )
     void getAllPastesForAccount( APIPlan apiPlan ) throws HaveIBeenPwndException, IOException {
         final APIAccount account = APIAccount.builder().key( "test-key" ).plan( apiPlan ).build();
         final List<RateLimiterEntity> rateLimiter = spy( RateLimiterBuilder.from( account ) );
@@ -72,7 +75,55 @@ class RateLimiterHttpCallExecutorTest {
 
     @ParameterizedTest
     @EnumSource( APIPlan.class )
-    void getAllBreachesForAccount( APIPlan apiPlan ) throws HaveIBeenPwndException, IOException {
+    void getAllPastesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException(
+                                                                                            APIPlan apiPlan ) throws HaveIBeenPwndException, IOException {
+        final APIAccount account = APIAccount.builder().key( "test-key" ).plan( apiPlan ).build();
+        final List<RateLimiterEntity> rateLimiter = spy( RateLimiterBuilder.from( account ) );
+        final RateLimiterHttpCallExecutor underTest = new RateLimiterHttpCallExecutor( hibpService, rateLimiter );
+
+        when( hibpService.getAllPastesForAccount( "test-key", "account" ) ).thenReturn( pasteCall );
+        httpCallExecutorMockedStatic.when( ( ) -> HttpCallExecutor.callService( pasteCall ) ).thenThrow( new HaveIBeenPwndException.TooManyRequestsException() );
+
+        int max = apiPlan.getRequestsPerMinute() + 15;
+        for ( int i = 0 ; i < max ; i++ ) {
+            underTest.getAllPastesForAccount( "account" );
+        }
+
+        verify( hibpService, times( apiPlan.getRequestsPerMinute() ) ).getAllPastesForAccount( "test-key", "account" );
+        httpCallExecutorMockedStatic.verify(
+                ( ) -> HttpCallExecutor.callService( pasteCall ), times( apiPlan.getRequestsPerMinute() ) );
+    }
+
+    @ParameterizedTest
+    @EnumSource( APIPlan.class )
+    void getAllPastesForAccountDoesNotInteract( APIPlan apiPlan ) {
+        final List<RateLimiterEntity> rateLimiter = mock( List.class );
+        final RateLimiterHttpCallExecutor underTest = new RateLimiterHttpCallExecutor( hibpService, rateLimiter );
+        final Bucket bucket = mock( Bucket.class );
+        final Iterator<RateLimiterEntity> iterator = mock( Iterator.class );
+        RateLimiterEntity rateLimiterEntity = mock( RateLimiterEntity.class );
+
+        when( rateLimiter.iterator() ).thenReturn( iterator );
+        when( iterator.hasNext() ).thenReturn( true, false );
+        when( iterator.next() ).thenReturn( rateLimiterEntity );
+        when( rateLimiterEntity.getBucket() ).thenReturn( bucket );
+        when( bucket.tryConsume( anyLong() ) ).thenReturn( false );
+
+        int max = apiPlan.getRequestsPerMinute() + 15;
+        for ( int i = 0 ; i < max ; i++ ) {
+            assertDoesNotThrow(
+                    ( ) -> {
+                        underTest.getAllPastesForAccount( "account" );
+                    } );
+        }
+
+        httpCallExecutorMockedStatic.verifyNoInteractions();
+        verifyNoInteractions( hibpService );
+    }
+
+    @ParameterizedTest
+    @EnumSource( APIPlan.class )
+    void getAllBreachesForAccount( APIPlan apiPlan ) throws HaveIBeenPwndException {
         final APIAccount account = APIAccount.builder().key( "test-key" ).plan( apiPlan ).build();
         final List<RateLimiterEntity> rateLimiter = spy( RateLimiterBuilder.from( account ) );
         final RateLimiterHttpCallExecutor underTest = new RateLimiterHttpCallExecutor( hibpService, rateLimiter );
@@ -92,7 +143,34 @@ class RateLimiterHttpCallExecutorTest {
 
     @ParameterizedTest
     @EnumSource( APIPlan.class )
-    void getAllBreachesForAccountOverLimit( APIPlan apiPlan ) throws HaveIBeenPwndException, IOException {
+    void getAllBreachesForAccountDoesNotInteract( APIPlan apiPlan ) {
+        final List<RateLimiterEntity> rateLimiter = mock( List.class );
+        final RateLimiterHttpCallExecutor underTest = new RateLimiterHttpCallExecutor( hibpService, rateLimiter );
+        final Bucket bucket = mock( Bucket.class );
+        final Iterator<RateLimiterEntity> iterator = mock( Iterator.class );
+        RateLimiterEntity rateLimiterEntity = mock( RateLimiterEntity.class );
+
+        when( rateLimiter.iterator() ).thenReturn( iterator );
+        when( iterator.hasNext() ).thenReturn( true, false );
+        when( iterator.next() ).thenReturn( rateLimiterEntity );
+        when( rateLimiterEntity.getBucket() ).thenReturn( bucket );
+        when( bucket.tryConsume( anyLong() ) ).thenReturn( false );
+
+        int max = apiPlan.getRequestsPerMinute() + 15;
+        for ( int i = 0 ; i < max ; i++ ) {
+            assertDoesNotThrow(
+                    ( ) -> {
+                        underTest.getAllBreachesForAccount( "account", null, false, false );
+                    } );
+        }
+
+        httpCallExecutorMockedStatic.verifyNoInteractions();
+        verifyNoInteractions( hibpService );
+    }
+
+    @ParameterizedTest
+    @EnumSource( APIPlan.class )
+    void getAllBreachesForAccountOverLimit( APIPlan apiPlan ) throws HaveIBeenPwndException {
         final APIAccount account = APIAccount.builder().key( "test-key" ).plan( apiPlan ).build();
         final List<RateLimiterEntity> rateLimiter = spy( RateLimiterBuilder.from( account ) );
         final RateLimiterHttpCallExecutor underTest = new RateLimiterHttpCallExecutor( hibpService, rateLimiter );
@@ -101,6 +179,27 @@ class RateLimiterHttpCallExecutorTest {
 
         when( hibpService.getAllBreachesForAccount( "test-key", "account", false, false, null ) ).thenReturn( breachCall );
         httpCallExecutorMockedStatic.when( ( ) -> HttpCallExecutor.callService( breachCall ) ).thenReturn( response );
+
+        int max = apiPlan.getRequestsPerMinute() + 15;
+        for ( int i = 0 ; i < max ; i++ ) {
+            underTest.getAllBreachesForAccount( "account", null, false, false );
+        }
+
+        verify( hibpService, times( apiPlan.getRequestsPerMinute() ) ).getAllBreachesForAccount( "test-key", "account", false, false, null );
+        httpCallExecutorMockedStatic.verify(
+                ( ) -> HttpCallExecutor.callService( breachCall ), times( apiPlan.getRequestsPerMinute() ) );
+    }
+
+    @ParameterizedTest
+    @EnumSource( value = APIPlan.class )
+    void getAllBreachesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException(
+                                                                                              APIPlan apiPlan ) throws HaveIBeenPwndException {
+        final APIAccount account = APIAccount.builder().key( "test-key" ).plan( apiPlan ).build();
+        final List<RateLimiterEntity> rateLimiter = spy( RateLimiterBuilder.from( account ) );
+        final RateLimiterHttpCallExecutor underTest = new RateLimiterHttpCallExecutor( hibpService, rateLimiter );
+
+        when( hibpService.getAllBreachesForAccount( "test-key", "account", false, false, null ) ).thenReturn( breachCall );
+        httpCallExecutorMockedStatic.when( ( ) -> HttpCallExecutor.callService( breachCall ) ).thenThrow( new HaveIBeenPwndException.TooManyRequestsException() );
 
         int max = apiPlan.getRequestsPerMinute() + 15;
         for ( int i = 0 ; i < max ; i++ ) {

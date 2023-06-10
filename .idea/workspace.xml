@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5649d345-341e-4a87-a3d4-889ee9f58b78" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/caiosilva/hibp/exception/HaveIBeenPwndException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/caiosilva/hibp/exception/HaveIBeenPwndException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +62,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;improve__coverage&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/noname/Projects/core/src/main/java/com/github/caio_silva/hipb&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
@@ -86,31 +84,7 @@
       <recent name="com.github.caio_silva.hipb" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.RateLimiterHttpCallExecutorTest">
-    <configuration name="HaveIBeenPwndApiExceptionsTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;com.github.caio_silva.hipb.api.HaveIBeenPwndApiExceptionsTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotInteract">
     <configuration name="RateLimiterHttpCallExecutorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -135,7 +109,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="ResponseValidationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RateLimiterHttpCallExecutorTest.getAllBreachesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -148,7 +122,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.github.caiosilva.hibp.validation.ResponseValidationTest&quot;" />
+            <option value="&quot;com.github.caiosilva.hibp.executor.RateLimiterHttpCallExecutorTest.getAllBreachesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -159,7 +133,7 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="ResponseValidationTest.validateResponseThrowsBadRequestException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotInteract" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -172,7 +146,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;com.github.caiosilva.hibp.validation.ResponseValidationTest.validateResponseThrowsBadRequestException&quot;" />
+            <option value="&quot;com.github.caiosilva.hibp.executor.RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotInteract&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>true</ForceTestExec>
+      <method v="2" />
+    </configuration>
+    <configuration name="RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;com.github.caiosilva.hibp.executor.RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -209,11 +207,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotInteract" />
+        <item itemvalue="Gradle.RateLimiterHttpCallExecutorTest.getAllPastesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException" />
         <item itemvalue="Gradle.RateLimiterHttpCallExecutorTest" />
+        <item itemvalue="Gradle.RateLimiterHttpCallExecutorTest.getAllBreachesForAccountDoesNotThrowsHaveIBeenPwndExceptionTooManyRequestsException" />
         <item itemvalue="Gradle.ResponseValidationTest.validateResponseThrowsServiceUnavailableException" />
-        <item itemvalue="Gradle.ResponseValidationTest" />
-        <item itemvalue="Gradle.ResponseValidationTest.validateResponseThrowsBadRequestException" />
-        <item itemvalue="Gradle.HaveIBeenPwndApiExceptionsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -266,6 +264,31 @@
           <url>file://$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/validation/ResponseValidationTest.java</url>
           <line>79</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutor.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutorTest.java</url>
+          <line>178</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutorTest.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutor.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/github/caiosilva/hibp/executor/RateLimiterHttpCallExecutorTest.java</url>
+          <line>117</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
