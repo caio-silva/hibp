@@ -19,48 +19,52 @@ public final class HaveIBeenPwndBuilder {
     private Proxy proxy = null;
     List<RateLimiterEntity> rateLimiterEntity;
 
-    public static HaveIBeenPwndBuilder create(String userAgent) {
-        HaveIBeenPwndBuilder builder = new HaveIBeenPwndBuilder();
-        builder.userAgent = userAgent;
-        return builder;
+    public static HaveIBeenPwndBuilder create( ) {
+        return new HaveIBeenPwndBuilder();
     }
 
-    public HaveIBeenPwndBuilder withAccount(APIAccount... accounts) {
-        rateLimiterEntity = RateLimiterBuilder.from(accounts);
+    public HaveIBeenPwndBuilder withUserAgent( String userAgent ) {
+        this.userAgent = userAgent;
         return this;
     }
 
-    public HaveIBeenPwndBuilder withHaveIBeenPwndUrl(String url) {
+    public HaveIBeenPwndBuilder withAccount( APIAccount... accounts ) {
+        rateLimiterEntity = RateLimiterBuilder.from( accounts );
+        return this;
+    }
+
+    public HaveIBeenPwndBuilder withHaveIBeenPwndUrl( String url ) {
         this.haveIbeenPwndUrl = url;
         return this;
     }
 
-    public HaveIBeenPwndBuilder withPwndPasswordsUrl(String url) {
+    public HaveIBeenPwndBuilder withPwndPasswordsUrl( String url ) {
         this.pwndPasswordsUrl = url;
         return this;
     }
 
-    public HaveIBeenPwndBuilder addPadding(boolean addPadding) {
+    public HaveIBeenPwndBuilder addPadding( boolean addPadding ) {
         this.addPadding = addPadding;
         return this;
     }
 
-    public HaveIBeenPwndBuilder withProxy(Proxy proxy) {
+    public HaveIBeenPwndBuilder withProxy( Proxy proxy ) {
         this.proxy = proxy;
         return this;
     }
 
-    public HaveIBeenPwndApi build() {
+    public HaveIBeenPwndApi build( ) {
         HaveIBeenPwndApi.HaveIBeenPwndApiBuilder builder = HaveIBeenPwndApi.builder();
-        builder.hibpUrl(haveIbeenPwndUrl);
-        builder.ppwUrl(pwndPasswordsUrl);
-        builder.addPadding(addPadding);
-        builder.userAgent(userAgent);
-        builder.rateLimiterEntity(rateLimiterEntity);
-        builder.proxy(proxy);
+        builder.hibpUrl( haveIbeenPwndUrl );
+        builder.ppwUrl( pwndPasswordsUrl );
+        builder.addPadding( addPadding );
+        builder.userAgent( userAgent );
+        builder.rateLimiterEntity( rateLimiterEntity );
+        builder.proxy( proxy );
 
         return builder.build();
     }
 
-    private HaveIBeenPwndBuilder() {}
+    private HaveIBeenPwndBuilder( ) {
+    }
 }

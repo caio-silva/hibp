@@ -4,8 +4,6 @@ package com.github.caiosilva.hibp.executor;
 import static com.github.caiosilva.hibp.executor.HttpCallExecutor.callService;
 
 import com.github.caiosilva.hibp.client.HIBPHttpClient;
-import com.github.caiosilva.hibp.entity.Breach;
-import com.github.caiosilva.hibp.entity.Paste;
 import com.github.caiosilva.hibp.exception.HaveIBeenPwndException;
 import com.github.caiosilva.hibp.rateLimit.RateLimiterEntity;
 import com.github.caiosilva.hibp.validation.ResponseValidation;
@@ -19,70 +17,40 @@ public class RateLimiterHttpCallExecutor implements ResponseValidation {
     private final List<RateLimiterEntity> rateLimiter;
 
     public RateLimiterHttpCallExecutor(
-            HIBPHttpClient hibpService, List<RateLimiterEntity> rateLimiterEntityList) {
+                                        HIBPHttpClient hibpService, List<RateLimiterEntity> rateLimiterEntityList ) {
         this.hibpService = hibpService;
         rateLimiter = rateLimiterEntityList;
     }
 
-    public List<Paste> getAllPastesForAccount(String account) throws HaveIBeenPwndException {
-        List<Paste> result = new ArrayList<>();
-        boolean success = false;
-        RateLimiterEntity rateLimiterEntity;
-        String key;
-
-        while (!success) {
-            Iterator<RateLimiterEntity> it = rateLimiter.iterator();
-            while (it.hasNext()) {
-                rateLimiterEntity = it.next();
-                if (rateLimiterEntity.getBucket().tryConsume(1)) {
-                    try {
-                        key = rateLimiterEntity.getApiAccount().getKey();
-
-                        Optional<List<Paste>> pastes =
-                                callService(hibpService.getAllPastesForAccount(key, account));
-                        success = true;
-
-                        if (pastes.isPresent()) {
-                            result = pastes.get();
-                        }
-                    } catch (HaveIBeenPwndException.TooManyRequestsException e) {
-                    }
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public List<Breach> getAllBreachesForAccount(
-            String account, String domain, boolean truncateResponse, boolean includeUnverified)
-            throws HaveIBeenPwndException {
-        List<Breach> result = new ArrayList<>();
+    public List<Object> execute( CallWrapper callWrapper ) throws HaveIBeenPwndException {
+        List<Object> result = new ArrayList<>();
         boolean success = false;
         RateLimiterEntity rateLimiterEntity;
         String key;
 
         Iterator<RateLimiterEntity> it = rateLimiter.iterator();
-        while (it.hasNext() && !success) {
+        while ( it.hasNext() && ! success ) {
             rateLimiterEntity = it.next();
-            if (rateLimiterEntity.getBucket().tryConsume(1)) {
+            if ( rateLimiterEntity.getBucket().tryConsume( 1 ) ) {
                 try {
                     key = rateLimiterEntity.getApiAccount().getKey();
+                    Optional<List<Object>> response = Optional.empty();
+                    if ( callWrapper.isGetAllBreachesForAccount() ) {
+                        response = callService(
+                                hibpService.getAllBreachesForAccount(
+                                        key, callWrapper.getAccount(), callWrapper.isIncludeUnverified(), callWrapper.isTruncateResponse(), callWrapper.getDomain() ) );
+                    } else if ( callWrapper.isGetAllPastesForAccount() ) {
+                        response = callService(
+                                hibpService.getAllPastesForAccount(
+                                        key, callWrapper.getAccount() ) );
+                    }
 
-                    Optional<List<Breach>> breaches =
-                            callService(
-                                    hibpService.getAllBreachesForAccount(
-                                            key,
-                                            account,
-                                            includeUnverified,
-                                            truncateResponse,
-                                            domain));
                     success = true;
 
-                    if (breaches.isPresent()) {
-                        result = breaches.get();
+                    if ( response.isPresent() ) {
+                        result = response.get();
                     }
-                } catch (HaveIBeenPwndException.TooManyRequestsException e) {
+                } catch ( HaveIBeenPwndException.TooManyRequestsException e ) {
                 }
             }
         }

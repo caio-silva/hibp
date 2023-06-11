@@ -7,9 +7,9 @@ import com.github.caiosilva.hibp.exception.HaveIBeenPwndException;
 import retrofit2.Response;
 
 public interface ResponseValidation {
-    static void validate(Response<?> res) throws HaveIBeenPwndException {
-        if (!res.isSuccessful()) {
-            switch (res.code()) {
+    static void validate( Response<?> res ) throws HaveIBeenPwndException {
+        if ( ! res.isSuccessful() ) {
+            switch ( res.code() ) {
                 case 400:
                     throw new HaveIBeenPwndException.BadRequestException();
                 case 401:
@@ -21,10 +21,10 @@ public interface ResponseValidation {
                 case 429:
                     throw new HaveIBeenPwndException.TooManyRequestsException();
                 case 503:
-                    final String msg = !isNull(res.body()) ? " - " + res.body() : "";
-                    throw new HaveIBeenPwndException.ServiceUnavailableException(msg);
+                    final String msg = ! isNull( res.body() ) ? res.body().toString() : "";
+                    throw new HaveIBeenPwndException.ServiceUnavailableException( msg );
                 default:
-                    throw new HaveIBeenPwndException.UnknownErrorCodeException(res.code());
+                    throw new HaveIBeenPwndException.UnknownErrorCodeException( res.code() );
             }
         }
     }

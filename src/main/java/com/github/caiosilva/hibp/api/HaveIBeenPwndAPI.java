@@ -13,28 +13,27 @@ import java.util.Optional;
 
 public interface HaveIBeenPwndAPI extends ResponseValidation, APIKeyValidation {
 
-    List<Breach> getAllBreachesForAccount(String account)
-            throws HaveIBeenPwndException, IOException;
+    List<Breach> getAllBreachesForAccount( String account ) throws HaveIBeenPwndException, IOException;
 
-    List<Breach> getAllBreachedSites() throws HaveIBeenPwndException, IOException;
+    List<Breach> getAllBreachedSites( ) throws HaveIBeenPwndException, IOException;
 
-    List<Breach> getAllBreachedSites(String domain) throws HaveIBeenPwndException, IOException;
+    List<Breach> getAllBreachedSites( String domain ) throws HaveIBeenPwndException, IOException;
 
-    Optional<Breach> getBreachByName(String breach) throws HaveIBeenPwndException;
+    Optional<Breach> getBreachByName( String breach ) throws HaveIBeenPwndException;
 
-    List<String> getAllDataClasses() throws HaveIBeenPwndException;
+    List<String> getAllDataClasses( ) throws HaveIBeenPwndException;
 
-    List<Paste> getAllPastesForAccount(String account) throws HaveIBeenPwndException;
+    List<Paste> getAllPastesForAccount( String account ) throws HaveIBeenPwndException;
 
-    List<PwnedHash> searchByRange(String hash5) throws HaveIBeenPwndException;
+    List<PwnedHash> searchByRange( String hash5 ) throws HaveIBeenPwndException;
 
-    boolean isAccountPwned(String account) throws HaveIBeenPwndException;
+    boolean isAccountPwned( String account ) throws HaveIBeenPwndException;
 
-    boolean isPlainPasswordPwned(String password) throws HaveIBeenPwndException;
+    boolean isPlainPasswordPwned( String password ) throws HaveIBeenPwndException;
 
-    boolean isHashPasswordPwned(String pwHash) throws HaveIBeenPwndException;
+    boolean isHashPasswordPwned( String pwHash ) throws HaveIBeenPwndException;
 
-    String makeHash(String password);
+    String makeHash( String password );
 
-    void validateAPIKey() throws HaveIBeenPwndException;
+    void validateAPIKey( ) throws HaveIBeenPwndException;
 }
