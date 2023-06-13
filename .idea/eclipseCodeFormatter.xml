@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatterProjectSettings">
+    <option name="selectedGlobalProfile">
+      <Settings>
+        <option name="formatter" value="ECLIPSE" />
+        <option name="id" value="1686668071397" />
+        <option name="importOrderConfigFilePath" value="$PROJECT_DIR$/CodeFormatting.importorder" />
+        <option name="importOrderFromFile" value="true" />
+        <option name="name" value="FD" />
+        <option name="pathToConfigFileJava" value="$PROJECT_DIR$/eclipseStyle.xml" />
+        <option name="selectedJavaProfile" value="Fanduel" />
+      </Settings>
+    </option>
+  </component>
+</project>

@@ -41,7 +41,10 @@ dependencies {
 	implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
 	implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+	implementation 'org.slf4j:slf4j-api:2.0.7'
 
+
+	testImplementation 'ch.qos.logback:logback-classic:1.4.7'
 	testImplementation 'org.mockito:mockito-core:5.3.1'
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
@@ -67,16 +70,15 @@ spotless {
 		endWithNewline()
 	}
 	java {
-		importOrder()
 		removeUnusedImports()
 		toggleOffOn()
 		cleanthat()
-		googleJavaFormat('1.8').aosp().reflowLongStrings().groupArtifact('com.google.googlejavaformat:google-java-format')
 		trimTrailingWhitespace()
 		endWithNewline()
 		formatAnnotations()
+		importOrderFile('eclipseStyle.importorder')
 		eclipse('4.26').configFile('eclipseStyle.xml')
-		licenseHeader '/* (C)$YEAR */'
+		licenseHeader '/* https://github.com/caio-silva/hibp (C)$YEAR */'
 	}
 }
 
@@ -104,6 +106,16 @@ jacocoTestReport {
 	reports {
 		xml.required = true
 		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+}
+
+jar {
+	archiveFileName = "${rootProject.name}-${version}.jar"
+
+	manifest {
+		attributes'Name': rootProject.name,
+				'Version': version,
+				'Description': 'Java API for https://haveibeenpwned.com/api/v3/ '
 	}
 }
 
