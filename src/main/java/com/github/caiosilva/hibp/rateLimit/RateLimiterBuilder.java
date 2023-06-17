@@ -35,9 +35,14 @@ public class RateLimiterBuilder {
 	}
 
 	public static Bucket createBucket( APIPlan apiPlan ) {
-		Refill refill = Refill.intervally( apiPlan.getRequestsPerMinute(),
-				Duration.ofMinutes( 1 ) );
-		Bandwidth limit = Bandwidth.classic( apiPlan.getRequestsPerMinute(), refill );
-		return Bucket.builder().addLimit( limit ).build();
+		final long maxRequestsPerMinute = apiPlan.getRequestsPerMinute();
+		final long timePerRequestInMillis = 60_000 / maxRequestsPerMinute;
+
+		Refill refillPerMin = Refill.intervally( 1,
+				Duration.ofMillis( timePerRequestInMillis + 120 ) );
+		//		Refill refillPerMin = Refill.intervally(1, Duration.ofSeconds(6));
+		Bandwidth limitPerMin = Bandwidth.classic( 1, refillPerMin ).withInitialTokens( 0 );
+
+		return Bucket.builder().addLimit( limitPerMin ).build();
 	}
 }

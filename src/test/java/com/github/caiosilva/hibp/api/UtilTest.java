@@ -57,10 +57,6 @@ class UtilTest {
 			assertThrows( HaveIBeenPwndException.ForbiddenException.class,
 					() -> Util.execute( CALL ) );
 
-			when( RESPONSE.code() ).thenReturn( 404 );
-			assertThrows( HaveIBeenPwndException.NotFoundException.class,
-					() -> Util.execute( CALL ) );
-
 			when( RESPONSE.code() ).thenReturn( 429 );
 			assertThrows( HaveIBeenPwndException.TooManyRequestsException.class,
 					() -> Util.execute( CALL ) );

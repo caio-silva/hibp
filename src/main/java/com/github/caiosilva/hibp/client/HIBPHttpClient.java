@@ -4,6 +4,7 @@ package com.github.caiosilva.hibp.client;
 import java.util.List;
 
 import com.github.caiosilva.hibp.entity.Breach;
+import com.github.caiosilva.hibp.entity.Paste;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,7 +15,7 @@ import retrofit2.http.Query;
 public interface HIBPHttpClient {
 
 	@GET("breachedaccount/{account}")
-	Call<List<Object>> getAllBreachesForAccount( @Header("hibp-api-key") String apiKey,
+	Call<List<Breach>> getAllBreachesForAccount( @Header("hibp-api-key") String apiKey,
 			@Path(value = "account") String account,
 			@Query("includeUnverified") boolean includeUnverified,
 			@Query("truncateResponse") boolean truncateResponse, @Query("domain") String domain );
@@ -29,6 +30,6 @@ public interface HIBPHttpClient {
 	Call<List<String>> getDataClasses();
 
 	@GET("pasteaccount/{account}")
-	Call<List<Object>> getAllPastesForAccount( @Header("hibp-api-key") String apiKey,
+	Call<List<Paste>> getAllPastesForAccount( @Header("hibp-api-key") String apiKey,
 			@Path(value = "account") String account );
 }

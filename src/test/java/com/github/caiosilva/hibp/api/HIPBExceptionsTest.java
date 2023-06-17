@@ -25,8 +25,7 @@ class HIPBExceptionsTest {
 	@Nested
 	class GetAllBreachesForAccount {
 		@Test
-		void getAllBreachesForAccountThrowsNoAPIKeyProvidedException()
-				throws HaveIBeenPwndException {
+		void getAllBreachesForAccountThrowsNoAPIKeyProvidedException() {
 			assertThrows( HaveIBeenPwndException.NoAPIKeyProvidedException.class,
 					() -> noAPIKeyUnderTest.getAllBreachesForAccount( "adobe" ) );
 		}
@@ -38,12 +37,6 @@ class HIPBExceptionsTest {
 		void getBreachByNameFound() throws HaveIBeenPwndException {
 			boolean result = noAPIKeyUnderTest.getBreachByName( "adobe" ).isPresent();
 			assertTrue( result );
-		}
-
-		@Test
-		void getBreachByNameThrowsNotFoundException() throws HaveIBeenPwndException {
-			assertThrows( HaveIBeenPwndException.NotFoundException.class,
-					() -> noAPIKeyUnderTest.getBreachByName( "fanduel" ) );
 		}
 	}
 

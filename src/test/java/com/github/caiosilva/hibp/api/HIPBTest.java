@@ -17,27 +17,31 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.github.caiosilva.hibp.entity.APIAccount;
-import com.github.caiosilva.hibp.entity.APIPlan;
-import com.github.caiosilva.hibp.entity.Breach;
-import com.github.caiosilva.hibp.entity.PwnedHash;
+import com.github.caiosilva.hibp.entity.*;
 import com.github.caiosilva.hibp.exception.HaveIBeenPwndException;
 
 @ExtendWith(MockitoExtension.class)
 class HIPBTest {
 
-	private static final APIAccount FAKE_ACCOUNT_RPM10 = APIAccount.builder()
-			.key( "key" )
-			.plan( APIPlan.RPM10 )
-			.build();
-
-	private final HIPB underTest = HaveIBeenPwndBuilder.create()
-			.withAccount( FAKE_ACCOUNT_RPM10 )
-			.withUserAgent( "something" )
-			.addPadding( true )
-			.build();
+	private final APIAccount apiAccount;
+	private final HIPB underTest;
+	private String apiKey;
 	private final String PWND_PASSWORD = "password";
 	private final String PWND_PASSWORD_HASH = "5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8";
+
+	HIPBTest() {
+		if ( isApiKeyAvailable() ) {
+			apiAccount = APIAccount.builder().key( apiKey ).plan( APIPlan.RPM10 ).build();
+		} else {
+			apiAccount = APIAccount.builder().key( "key" ).plan( APIPlan.RPM10 ).build();
+		}
+
+		underTest = HaveIBeenPwndBuilder.create()
+				.withAccount( apiAccount )
+				.withUserAgent( "something" )
+				.addPadding( true )
+				.build();
+	}
 
 	@BeforeEach
 	void setUp() {
@@ -49,8 +53,11 @@ class HIPBTest {
 
 	@Test
 	@EnabledIf("isApiKeyAvailable")
-	void getAllBreachesForAccount() throws HaveIBeenPwndException {
-		// needs a key
+	void getAllBreachesForAccount() {
+		assertDoesNotThrow( () -> {
+			List<Breach> adobe = underTest.getAllBreachesForAccount( "adobe" );
+			assertTrue( adobe.size() > 0 );
+		} );
 	}
 
 	@Test
@@ -81,6 +88,21 @@ class HIPBTest {
 	@Test
 	@EnabledIf("isApiKeyAvailable")
 	void getAllPastesForAccount() {
+		assertDoesNotThrow( () -> {
+			List<Paste> result = underTest
+					.getAllPastesForAccount( "account-exists@hibp-integration-tests.com" );
+			assertFalse( result.isEmpty() );
+		} );
+
+		// account-exists@hibp-integration-tests.com
+		// Returns one breach and one paste.
+
+		//		for (int i = 0; i < 11; i++) {
+		//			try {
+		//				underTest.getAllPastesForAccount( "account-exists@hibp-integration-tests.com" );
+		//			} catch (HaveIBeenPwndException ignore) {
+		//			}
+		//		}
 	}
 
 	@Test
@@ -101,7 +123,9 @@ class HIPBTest {
 
 	@Test
 	@EnabledIf("isApiKeyAvailable")
-	void isAccountPwned() {
+	void isAccountPwned() throws HaveIBeenPwndException {
+		//		boolean accountPwned = underTest.isAccountPwned( "caiogustavo15@hotmail.com" );
+		//		assertFalse( accountPwned );
 	}
 
 	@Test
@@ -121,12 +145,15 @@ class HIPBTest {
 	}
 
 	@Test
-	@EnabledIf("isApiKeyAvailable")
+	//	@EnabledIf("isApiKeyAvailable")
 	void executeWithRateLimiter() {
+		boolean apiKeyAvailable = isApiKeyAvailable();
+		assertTrue( apiKeyAvailable );
 	}
 
 	private boolean isApiKeyAvailable() {
-		String apiKey = System.getProperty( "HIBP_API_KEY" );
+		apiKey = System.getenv( "HIBP_API_KEY" );
+
 		return apiKey != null && !apiKey.isEmpty();
 	}
 }
