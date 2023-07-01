@@ -1,0 +1,3 @@
+19-06-2023 21:43:48.473, [Test worker] ,WARN  ,c.g.c.hibp.rateLimit.RateLimiter, - giving key
+19-06-2023 21:43:48.525, [Test worker] ,INFO  ,com.github.caiosilva.hibp.api.Util, - Before making call :retrofit2.OkHttpCall@561e8bab
+19-06-2023 21:43:49.183, [Test worker] ,INFO  ,com.github.caiosilva.hibp.api.Util, - Call was successful :retrofit2.OkHttpCall@561e8bab

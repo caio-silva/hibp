@@ -1,84 +1,121 @@
 <configuration>
+<!--    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />-->
+
+    <property name="LOG_DIR" value="${user.home}/.hipb/logs" />
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="INFO_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/info.log</file>
-        <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--    <appender name="INFO_FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--&lt;!&ndash;    <appender name="INFO_FILE" class="ch.qos.logback.core.ConsoleAppender">&ndash;&gt;-->
+<!--        <file>logs/info.log</file>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>INFO</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <appender name="WARN_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/warn.log</file>
-        <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--    <appender name="WARN_FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--&lt;!&ndash;    <appender name="WARN_FILE" class="ch.qos.logback.core.ConsoleAppender">&ndash;&gt;-->
+<!--        <file>logs/warn.log</file>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>WARN</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <appender name="DEBUG_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/debug.log</file>
-        <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>DEBUG</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--    <appender name="DEBUG_FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--&lt;!&ndash;    <appender name="DEBUG_FILE" class="ch.qos.logback.core.ConsoleAppender">&ndash;&gt;-->
+<!--        <file>logs/debug.log</file>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>DEBUG</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/error.log</file>
-        <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--    <appender name="ERROR_FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--&lt;!&ndash;    <appender name="ERROR_FILE" class="ch.qos.logback.core.ConsoleAppender">&ndash;&gt;-->
+<!--        <file>logs/error.log</file>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <appender name="TRACE_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/trace.log</file>
-        <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>TRACE</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--    <appender name="TRACE_FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--&lt;!&ndash;    <appender name="TRACE_FILE" class="ch.qos.logback.core.ConsoleAppender">&ndash;&gt;-->
+<!--        <file>logs/trace.log</file>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>TRACE</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
-    <appender name="MIXED_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/mixed.log</file>
-        <append>false</append>
+<!--    <appender name="MIXED_FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>/home/noname/test/logs/mixed.log</file>-->
+<!--        <append>false</append>-->
+<!--        <encoder>-->
+<!--            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS}, [%thread] ,%-5level ,%logger{36}, - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <property name="LOG_DIR" value="${user.home}/.hipb/logs" />-->
+<!--    <file>${LOG_DIR}/mixed.log</file>-->
+<!--    <appender name="MIXED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--&lt;!&ndash;        <file>logs/mixed.log</file>&ndash;&gt;-->
+<!--        <file>${LOG_DIR}/mixed.html</file>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${LOG_DIR}/mixed-%d{yyyy-MM-dd}.html</fileNamePattern>-->
+<!--            <maxHistory>30</maxHistory> &lt;!&ndash; Number of archived log files to keep &ndash;&gt;-->
+<!--        </rollingPolicy>-->
+<!--        <encoder>-->
+<!--            <layout class="ch.qos.logback.classic.html.HTMLLayout">-->
+<!--                <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS}, [%thread], %-5level, %logger{36}, - %msg%n</pattern>-->
+<!--            </layout>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+    <appender name="MIXED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--        <file>logs/mixed.log</file>-->
+<!--        <file>${LOG_DIR}/mixed.log</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/mixed-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory> <!-- Number of archived log files to keep -->
+        </rollingPolicy>
         <encoder>
-            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS}, [%thread] ,%-5level ,%logger{36}, - %msg%n</pattern>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS}, [%thread], %-5level, %logger{36}, - %msg%n</pattern>
         </encoder>
     </appender>
 
     <root level="*">
-        <appender-ref ref="INFO_FILE"/>
-        <appender-ref ref="WARN_FILE"/>
-        <appender-ref ref="DEBUG_FILE"/>
-        <appender-ref ref="ERROR_FILE"/>
-        <appender-ref ref="TRACE_FILE"/>
+<!--        <appender-ref ref="INFO_FILE"/>-->
+<!--        <appender-ref ref="WARN_FILE"/>-->
+<!--        <appender-ref ref="DEBUG_FILE"/>-->
+<!--        <appender-ref ref="ERROR_FILE"/>-->
+<!--        <appender-ref ref="TRACE_FILE"/>-->
         <appender-ref ref="MIXED_FILE"/>
         <appender-ref ref="CONSOLE"/>
     </root>

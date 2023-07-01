@@ -41,10 +41,13 @@ public class HIPB implements HIPBAPI {
 			List<RateLimiterEntity> rateLimiterEntity ) {
 
 		OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor( chain -> {
-			Request request = chain.request()
-					.newBuilder()
-					.addHeader( "User-Agent", userAgent )
-					.build();
+			Request.Builder builder1 = chain.request().newBuilder();
+
+			if ( !isNull( userAgent ) ) {
+				builder1.addHeader( "User-Agent", userAgent );
+			}
+
+			Request request = builder1.build();
 			return chain.proceed( request );
 		} );
 
