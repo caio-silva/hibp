@@ -1,0 +1,10 @@
+19-06-2023 00:17:08.052 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Before making call :retrofit2.OkHttpCall@561e8bab
+19-06-2023 00:17:08.675 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Call was successful :retrofit2.OkHttpCall@561e8bab
+19-06-2023 00:24:20.198 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Before making call :retrofit2.OkHttpCall@3287cf03
+19-06-2023 00:24:21.194 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Call was successful :retrofit2.OkHttpCall@3287cf03
+19-06-2023 21:39:30.431 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Before making call :retrofit2.OkHttpCall@561e8bab
+19-06-2023 21:39:31.274 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Call was successful :retrofit2.OkHttpCall@561e8bab
+19-06-2023 21:41:31.951 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Before making call :retrofit2.OkHttpCall@561e8bab
+19-06-2023 21:41:32.591 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Call was successful :retrofit2.OkHttpCall@561e8bab
+19-06-2023 21:43:48.525 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Before making call :retrofit2.OkHttpCall@561e8bab
+19-06-2023 21:43:49.183 [Test worker] INFO  com.github.caiosilva.hibp.api.Util - Call was successful :retrofit2.OkHttpCall@561e8bab

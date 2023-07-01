@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Main-Class: com.github.caiosilva.hibp.Application
+Implementation-Title: hibp
+Implementation-Version: 0.0.1
+Description: Java API for https://haveibeenpwned.com/api/v3/
+Class-Path: gradle-api-8.1.1.jar groovy-3.0.15.jar groovy-ant-3.0.15.jar
+  groovy-astbuilder-3.0.15.jar groovy-console-3.0.15.jar groovy-datetime
+ -3.0.15.jar groovy-dateutil-3.0.15.jar groovy-groovydoc-3.0.15.jar groo
+ vy-json-3.0.15.jar groovy-nio-3.0.15.jar groovy-sql-3.0.15.jar groovy-t
+ emplates-3.0.15.jar groovy-test-3.0.15.jar groovy-xml-3.0.15.jar javapa
+ rser-core-3.17.0.jar kotlin-stdlib-1.8.10.jar kotlin-stdlib-common-1.8.
+ 10.jar kotlin-reflect-1.8.10.jar kotlin-stdlib-jdk7-1.8.10.jar kotlin-s
+ tdlib-jdk8-1.8.10.jar gradle-installation-beacon-8.1.1.jar
+
